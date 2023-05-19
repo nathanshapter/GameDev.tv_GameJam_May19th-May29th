@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = context.ReadValue<Vector2>().x;
         if(context.performed) { transform.SetParent(null); }
+        animator.SetBool("isRunning", true);
+        if (context.canceled)
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
