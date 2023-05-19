@@ -13,6 +13,9 @@ public class ShadowGlobalLight : MonoBehaviour
     [SerializeField] float onIntensity = 0.5f;
     [SerializeField] float lightIntensityFadeInx = 6;
 
+    [SerializeField] GameObject coinsToCollect;
+    [SerializeField] GameObject[] shadowWorld;
+    [SerializeField] GameObject[] lightWorld;
     private void Start()
     {
         switches = FindObjectsOfType<LightSwitch>();
@@ -20,16 +23,16 @@ public class ShadowGlobalLight : MonoBehaviour
 
         if(startOff)
         {
+            coinsToCollect.SetActive(false);
             globalLight.intensity = 0;
 
-            if(switches.Length == 0)
-            {
-                globalLight.intensity = onIntensity;
-            }
+            FlickLight(false);
+
         }
         else
         {
             globalLight.intensity = onIntensity;
+
         }
     }
 
@@ -38,10 +41,28 @@ public class ShadowGlobalLight : MonoBehaviour
         if(switches.Length == 0)
         {
             globalLight.intensity = onIntensity;
+            coinsToCollect.SetActive(true);
+            FlickLight(true);
+            FlickShadow(false); 
         }
         else
         {
             print($"There are still{switches.Length} to destroy");
+        }
+    }
+
+    void FlickShadow(bool v)
+    {
+        foreach (var item in shadowWorld)
+        {
+            item.SetActive(v);
+        }
+    }
+    void FlickLight(bool v)
+    {
+        foreach (var item in lightWorld)
+        {
+            item.SetActive(v);
         }
     }
 }
