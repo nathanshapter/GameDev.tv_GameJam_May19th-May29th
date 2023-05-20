@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class RespawnManager : MonoBehaviour
 {
-    public Transform respawnPosition;
+    public Transform shadowRespawnPosition, lightRespawnPosition;
     [SerializeField] float waitBeforeRespawn =3;
      Animator animator;
     BoxCollider2D boxCollider;
+    bool deathInProgress;
+    ShadowGlobalLight sgl;
 
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        sgl = FindObjectOfType<ShadowGlobalLight>();
         
     }
 
@@ -19,7 +22,10 @@ public class RespawnManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
-            ProcessDeath();
+           
+                ProcessDeath();
+            
+          
           
         }
     }
@@ -29,11 +35,26 @@ public class RespawnManager : MonoBehaviour
     
         yield return new WaitForSeconds(waitBeforeRespawn);
         animator.SetTrigger("Alive");
-        transform.position = respawnPosition.transform.position;
+        if(sgl.globalLight.intensity == sgl.onIntensity)
+        {
+            transform.position = lightRespawnPosition.transform.position;
+        }
+        else
+        {
+            transform.position = shadowRespawnPosition.transform.position;
+        }
+        
+        deathInProgress = false;
         
     }
-    void ProcessDeath()
+   public void ProcessDeath()
     {
+        transform.SetParent(null);
+        if(deathInProgress)
+        {
+            return;
+        }
+        deathInProgress = true;
         DeathCounter.instance.amountOfDeaths++;
         Debug.Log(DeathCounter.instance.amountOfDeaths);
         animator.SetTrigger("Death");

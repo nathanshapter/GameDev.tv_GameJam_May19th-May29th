@@ -7,10 +7,10 @@ public class ShadowGlobalLight : MonoBehaviour
 {
     [SerializeField] bool startOff;
     bool lightOn;
-    Light2D globalLight;
+  public  Light2D globalLight;
     public LightSwitch[] switches;
 
-    [SerializeField] float onIntensity = 0.5f;
+   public  float onIntensity = 0.5f;
     [SerializeField] float lightIntensityFadeInx = 6;
 
     [SerializeField] GameObject coinsToCollect;
@@ -32,6 +32,8 @@ public class ShadowGlobalLight : MonoBehaviour
         else
         {
             globalLight.intensity = onIntensity;
+            FlickLight(true);
+            FlickShadow(false);
 
         }
     }

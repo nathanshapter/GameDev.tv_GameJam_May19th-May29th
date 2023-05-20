@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float coyoteTime;
     float coyoteTimeCounter;
     [SerializeField] GameObject groundCheck;
-    public LayerMask groundLayer;
+    public LayerMask groundLayer, boxLayer;
     [SerializeField] float jumpingPower = 50;
 
     Animator animator;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         FlipPlayer();
-        if (IsGrounded())
+        if (IsGrounded() || OnBox())
         {
             coyoteTimeCounter = coyoteTime;
         }
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
-        if(context.performed) { transform.SetParent(null); }
+      
         animator.SetBool("isRunning", true);
         if (context.canceled)
         {
@@ -97,6 +97,10 @@ public class PlayerController : MonoBehaviour
 
     }
     
+    public bool OnBox()
+    {
+        return Physics2D.OverlapCircle(groundCheck.transform.position, 0.5f, boxLayer);
+    }
    
 
 
@@ -126,6 +130,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         transform.SetParent(collision.transform);
+
+        if (collision.transform.CompareTag("Box"))
+        {
+            
+        }
     }
    
 
