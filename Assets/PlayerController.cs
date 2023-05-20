@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float horizontal;
     Rigidbody2D rb;
     [SerializeField] float speedActuel = 10;
-    bool isFacingRight;
+   public bool isFacingRight;
     [SerializeField] float coyoteTime;
     float coyoteTimeCounter;
     [SerializeField] GameObject groundCheck;
@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpingPower = 50;
 
     Animator animator;
+
+    [SerializeField] GameObject throwableLight;
+    [SerializeField] Transform lightSpawn;
+    [SerializeField] float timeBetweenBullets = 0.25f;
+
+    bool lightJustThrown = false;
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
@@ -27,6 +33,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ThrowLight(InputAction.CallbackContext context)
+    {
+
+        if (!lightJustThrown)
+        {
+            StartCoroutine(ResetLight());
+
+        }
+
+
+
+      
+    }
+
+    IEnumerator ResetLight() // this also shoots it with a timer to line up with the animation
+    {
+        
+        lightJustThrown = true;
+        yield return new WaitForSeconds(0.25f);
+        Instantiate(throwableLight, lightSpawn.position, transform.rotation);
+
+
+        yield return new WaitForSeconds(timeBetweenBullets);
+        lightJustThrown = false;
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
 
@@ -35,10 +67,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
 
-            //   animator.SetBool("Grounded", false);
-
-            //  animator.SetBool("walk", false);
-            //  animator.SetBool("isRunning", false);
+            
               animator.SetTrigger("Jump");
 
 
