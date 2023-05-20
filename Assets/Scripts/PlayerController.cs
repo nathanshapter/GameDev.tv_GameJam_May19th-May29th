@@ -129,11 +129,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        transform.SetParent(collision.transform);
 
-        if (collision.transform.CompareTag("Box"))
+
+        if (collision.transform.CompareTag("Box") || collision.transform.CompareTag("Ground"))
         {
-            
+            transform.SetParent(collision.transform);
         }
     }
    

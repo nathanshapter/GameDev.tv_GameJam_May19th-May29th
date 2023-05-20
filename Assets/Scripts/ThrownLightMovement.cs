@@ -29,16 +29,10 @@ public class ThrownLightMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.transform.CompareTag("Ground") || !collision.transform.CompareTag("Player"))
-        {
-            Destroy(this);
-        }
-    }
+   
     private IEnumerator DestroyLight()
     {
         yield return new WaitForSeconds(selfDestuctTimer);
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

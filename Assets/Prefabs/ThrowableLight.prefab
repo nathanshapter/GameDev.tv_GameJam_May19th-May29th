@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrownLightSpeed: 15
-  selfDestuctTimer: 10
+  selfDestuctTimer: 5
 --- !u!1 &826873805991991766
 GameObject:
   m_ObjectHideFlags: 0
