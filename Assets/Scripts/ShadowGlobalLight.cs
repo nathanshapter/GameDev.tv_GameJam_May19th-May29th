@@ -27,7 +27,7 @@ public class ShadowGlobalLight : MonoBehaviour
             globalLight.intensity = 0;
 
             FlickLight(false);
-
+            FlickShadow(true);
         }
         else
         {

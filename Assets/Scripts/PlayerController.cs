@@ -77,6 +77,9 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {        
+        transform.SetParent(null);  
+
+
         if (context.performed && coyoteTimeCounter > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -120,6 +123,10 @@ public class PlayerController : MonoBehaviour
         transform.localScale = localScale;
 
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        transform.SetParent(collision.transform);
+    }
+   
 
 }
