@@ -16,8 +16,10 @@ public class ShadowGlobalLight : MonoBehaviour
     [SerializeField] GameObject coinsToCollect;
     [SerializeField] GameObject[] shadowWorld;
     [SerializeField] GameObject[] lightWorld;
+    PlayerController player;
     private void Start()
     {
+        player = FindObjectOfType<PlayerController>();
         switches = FindObjectsOfType<LightSwitch>();
         globalLight = GetComponent<Light2D>();
 
@@ -55,6 +57,8 @@ public class ShadowGlobalLight : MonoBehaviour
 
     void FlickShadow(bool v)
     {
+        player.transform.SetParent(null);
+
         foreach (var item in shadowWorld)
         {
             item.SetActive(v);
@@ -62,6 +66,7 @@ public class ShadowGlobalLight : MonoBehaviour
     }
     void FlickLight(bool v)
     {
+        player.transform.SetParent(null);
         foreach (var item in lightWorld)
         {
             item.SetActive(v);
