@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrownLightSpeed: 15
+  selfDestuctTimer: 10
 --- !u!1 &826873805991991766
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Intensity: 1.11
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000558e38d2b52aa5eb399e55e74b1d9776
+  m_ApplyToSortingLayers: 00000000b52aa5eb399e55e74b1d9776
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
