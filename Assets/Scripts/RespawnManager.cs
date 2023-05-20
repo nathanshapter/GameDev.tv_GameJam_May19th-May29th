@@ -6,7 +6,12 @@ public class RespawnManager : MonoBehaviour
 {
     public Transform respawnPosition;
     [SerializeField] float waitBeforeRespawn =3;
- 
+     Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,13 +20,17 @@ public class RespawnManager : MonoBehaviour
             
             DeathCounter.instance.amountOfDeaths++;
             Debug.Log(DeathCounter.instance.amountOfDeaths);
+            animator.SetTrigger("Death");
             StartCoroutine(ReturnPlayerToStart());
         }
     }
 
     private IEnumerator ReturnPlayerToStart()
     {
+       
         yield return new WaitForSeconds(waitBeforeRespawn);
+        animator.SetTrigger("Alive");
         transform.position = respawnPosition.transform.position;
+        
     }
 }
