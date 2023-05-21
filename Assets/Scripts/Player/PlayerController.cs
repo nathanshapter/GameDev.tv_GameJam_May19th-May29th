@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
 
         }
+        if(OnBox())
+        {
+        //    rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
