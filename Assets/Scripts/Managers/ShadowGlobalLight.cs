@@ -16,10 +16,13 @@ public class ShadowGlobalLight : MonoBehaviour
     [SerializeField] GameObject coinsToCollect;
     [SerializeField] GameObject[] shadowWorld;
     [SerializeField] GameObject[] lightWorld;
+    [SerializeField] bool changePositionOnLightFlick = false;
+    
     PlayerController player;
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        
         switches = FindObjectsOfType<LightSwitch>();
         globalLight = GetComponent<Light2D>();
 
@@ -66,6 +69,10 @@ public class ShadowGlobalLight : MonoBehaviour
     }
     void FlickLight(bool v)
     {
+        if (changePositionOnLightFlick)
+        {
+            player.transform.position = player.GetComponent<RespawnManager>().lightRespawnPosition.transform.position;
+        }
         player.transform.SetParent(null);
         foreach (var item in lightWorld)
         {

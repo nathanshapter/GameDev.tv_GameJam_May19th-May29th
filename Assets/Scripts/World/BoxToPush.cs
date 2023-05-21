@@ -8,6 +8,7 @@ public class BoxToPush : MonoBehaviour
    [SerializeField] Vector2 spawnPosition;
 
     PlayerController player;
+    [SerializeField] float bottomRespawnPosition = -100;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class BoxToPush : MonoBehaviour
     }
     void Update()
     {
-        if(transform.position.y < -100)
+        if(transform.position.y < bottomRespawnPosition)
         {
             if (player.GetComponentInParent<BoxToPush>())
             {

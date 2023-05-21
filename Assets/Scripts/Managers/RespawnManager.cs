@@ -13,6 +13,7 @@ public class RespawnManager : MonoBehaviour
 
     private void Start()
     {
+        transform.position = shadowRespawnPosition.transform.position;
         animator = GetComponentInChildren<Animator>();
         sgl = FindObjectOfType<ShadowGlobalLight>();
         
