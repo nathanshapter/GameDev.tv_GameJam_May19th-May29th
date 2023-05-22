@@ -23,12 +23,13 @@ public class PlayerController : MonoBehaviour
 
     bool lightJustThrown = false;
 
-
+    CameraFip cam;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        cam = GetComponent<CameraFip>();
         
     }
     private void Update()
@@ -51,7 +52,17 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        horizontal = context.ReadValue<Vector2>().x;
+        if (cam.flipped180)
+        {
+            horizontal = -context.ReadValue<Vector2>().x;
+        }
+        else
+        {
+            horizontal = context.ReadValue<Vector2>().x;
+        }
+
+
+      
       
         animator.SetBool("isRunning", true);
         if (context.canceled)

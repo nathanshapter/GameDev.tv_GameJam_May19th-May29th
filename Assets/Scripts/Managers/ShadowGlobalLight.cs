@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +19,11 @@ public class ShadowGlobalLight : MonoBehaviour
     [SerializeField] GameObject[] lightWorld;
     [SerializeField] bool changePositionOnLightFlick = false;
     
-    PlayerController player;
+    PlayerController player; CameraFip cam;
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
-        
+        cam = player.GetComponent<CameraFip>();
         switches = FindObjectsOfType<LightSwitch>();
         globalLight = GetComponent<Light2D>();
 
@@ -47,10 +48,22 @@ public class ShadowGlobalLight : MonoBehaviour
     {
         if(switches.Length == 0)
         {
-            globalLight.intensity = onIntensity;
-            coinsToCollect.SetActive(true);
-            FlickLight(true);
-            FlickShadow(false); 
+            if (startOff)
+            {
+                globalLight.intensity = onIntensity;
+                coinsToCollect.SetActive(true);
+                FlickLight(true);
+                FlickShadow(false);
+            }
+            else
+            {
+                globalLight.intensity = 0;
+                coinsToCollect.SetActive(false);
+                FlickLight(false);
+                FlickShadow(true);
+            }
+
+             
         }
         else
         {
