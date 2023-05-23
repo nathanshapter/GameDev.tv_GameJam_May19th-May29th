@@ -32,7 +32,9 @@ public class BoxToPush : MonoBehaviour
         if (collision.gameObject.GetComponent<ReturningPlatform>())
         {
             transform.SetParent(collision.gameObject.transform);
+            player.transform.SetParent(null);
         }
+       
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

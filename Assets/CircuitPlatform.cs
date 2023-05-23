@@ -70,6 +70,10 @@ public class CircuitPlatform : MonoBehaviour
         {
             canMove = true;
         }
+        if (collision.gameObject.CompareTag("Box"))
+        {
+            transform.SetParent(collision.transform);
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -77,11 +81,13 @@ public class CircuitPlatform : MonoBehaviour
         {
             canMove = false;
         }
+        transform.SetParent(null);
+        this.transform.Rotate(0, 0, 0);
     }
 
     private void Update()
     {
-
+        this.transform.Rotate(0, 0, 0);
 
 
         if (delay || !canMove) { return; }
